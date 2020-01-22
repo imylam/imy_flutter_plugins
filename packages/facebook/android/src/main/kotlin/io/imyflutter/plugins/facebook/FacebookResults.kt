@@ -13,7 +13,7 @@ class FacebookResults {
             )
         }
 
-        fun loginSuccess(accessToken: AccessToken): Map<String, Any> {
+        fun loginSuccess(accessToken: AccessToken): Map<String, Any?> {
             return mapOf(
                     Constants.RESP_STATUS_KEY to Constants.RESP_STATUS_LOGGED_IN,
                     Constants.RESP_ACCESS_TOKEN to mapAccessToken(accessToken)
@@ -27,7 +27,7 @@ class FacebookResults {
             )
         }
 
-        fun accessToken(accessToken: AccessToken?): Map<String, Any>? {
+        fun accessToken(accessToken: AccessToken?): Map<String, Any?>? {
             return if (accessToken == null) {
                 null
             } else {
@@ -35,13 +35,13 @@ class FacebookResults {
             }
         }
 
-        private fun mapAccessToken(accessToken: AccessToken) : Map<String, Any> {
+        private fun mapAccessToken(accessToken: AccessToken) : Map<String, Any?> {
             return mapOf(
                     Constants.FB_TOKEN to accessToken.token,
                     Constants.FB_USER_ID to accessToken.userId,
-                    Constants.FB_EXPIRES to accessToken.expires,
-                    Constants.FB_PERMISSIONS to accessToken.permissions,
-                    Constants.FB_DECLINE_PERMISSIONS to accessToken.declinedPermissions
+                    Constants.FB_EXPIRES to accessToken.expires.time,
+                    Constants.FB_PERMISSIONS to ArrayList<String>(accessToken.permissions),
+                    Constants.FB_DECLINE_PERMISSIONS to ArrayList<String>(accessToken.declinedPermissions)
             )
         }
     }

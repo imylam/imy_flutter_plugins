@@ -10,9 +10,12 @@ class FacebookAccessToken {
   FacebookAccessToken.fromMap(Map<String, dynamic> map)
       : token = map['token'],
         userId = map['userId'],
-        expires = map['expires'],
-        permissions = map['permissions'],
-        declinedPermissions = map['declinedPermissions'];
+        expires = DateTime.fromMillisecondsSinceEpoch(
+          map['expires'],
+          isUtc: true,
+        ),
+        permissions = map['permissions'].cast<String>(),
+        declinedPermissions = map['declinedPermissions'].cast<String>();
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
